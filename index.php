@@ -11,6 +11,8 @@
     <!-- Bootstrap -->
     <link href="js/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="js/DataTables-1.10.11/media/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="css/css.css">
+	
  
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,6 +27,7 @@
         <table id="projeto_poo" class="display" width="50%" cellspacing="0">
         <thead>
             <tr>
+                <th>Detalhes</th>
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Endereço</th>
@@ -37,6 +40,7 @@
                <th></th>
                 <th></th>
                 <th></th>
+				<th></th>
 				<th></th>                
             </tr>
         </tfoot>
@@ -51,17 +55,59 @@
 	<script type="text/javascript" charset="utf8" src="js/DataTables-1.10.11/media/js/jquery.dataTables.js"></script>
 	
 	<script type="text/javascript">
+
+	function format ( d ) {
+	    // `d` is the original data object for the row
+	    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+	        '<tr>'+
+	            '<td>Nome:</td>'+
+	            '<td>'+d.nome+'</td>'+
+	        '</tr>'+
+	        '<tr>'+
+	            '<td>CPF:</td>'+
+	            '<td>'+d.cpf+'</td>'+
+	        '</tr>'+
+	        '<tr>'+
+	            '<td>Cliente desde:</td>'+
+	            '<td>'+d.clienteDesde+'</td>'+
+	        '</tr>'+
+	    '</table>';
+	}
+
 	$( document ).ready(function() {
-		$('#projeto_poo').dataTable({
+
+		var table = $('#projeto_poo').DataTable({
 					 "bProcessing": true,
 					 "sAjaxSource": "response.php",
-					 "aoColumns": [
-							{ mData: 'nome' } ,
-							{ mData: 'cpf' },
-							{ mData: 'endereco' },
-							{ mData: 'email' }
+					 "columns": [
+							{
+							    "className":      'details-control',
+							    "orderable":      false,
+							    "data":           null,
+							    "defaultContent": '<a>detalhes</a>'
+							},
+							{ data: 'nome' } ,
+							{ data: 'cpf' },
+							{ data: 'endereco' },
+							{ data: 'email' }
 					]
 		});   
+
+		// Add event listener for opening and closing details
+	    $('#projeto_poo tbody').on('click', 'td.details-control', function () {
+
+	        var tr = $(this).closest('tr');     
+	        var row = table.row( tr );
+	        
+	        if ( row.child.isShown() ) {
+	            // This row is already open - close it
+	            row.child.hide();	            
+	        }
+	        else {
+	            // Open this row
+	            row.child( format(row.data()) ).show();	            
+	        }
+	    } );
 	});
 	</script>
     

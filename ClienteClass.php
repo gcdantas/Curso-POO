@@ -4,6 +4,7 @@ class Cliente implements JsonSerializable {
 	private $cpf;
 	private $endereco;
 	private $email;
+	private $clienteDesde;
 	
 	public function getNome() {
 		return $this->nome;
@@ -12,6 +13,15 @@ class Cliente implements JsonSerializable {
 		$this->nome = $nome;
 		return $this;
 	}
+	
+	public function getClienteDesde() {
+		return $this->$clienteDesde;
+	}
+	public function setClienteDesde($clienteDesde) {
+		$this->clienteDesde = $clienteDesde;
+		return $this;
+	}
+	
 	public function getCpf() {
 		return $this->cpf;
 	}
@@ -42,6 +52,7 @@ class Cliente implements JsonSerializable {
 			$cliente->setEndereco("Rua $i, lote $i$i casa $i$i$i");
 			$cliente->setEmail("cliente$i@teste.com");
 			$cliente->setCpf("00$i.00$i.000-$i$i");
+			$cliente->setClienteDesde(1995+$i);
 			$clientes[] = $cliente;
 		}
 		return $clientes;
