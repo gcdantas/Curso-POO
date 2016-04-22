@@ -23,13 +23,14 @@
   </head>
   <body>
     
-	<div class="">
+	<div>
         <table id="projeto_poo" class="display" width="50%" cellspacing="0">
         <thead>
             <tr>
                 <th>Detalhes</th>
                 <th>Nome</th>
-                <th>CPF</th>
+                <th>CPF/CNPJ</th>
+                <th>Tipo</th>
                 <th>Endereço</th>
 				<th>Email</th>               
             </tr>
@@ -37,7 +38,8 @@
  
         <tfoot>
             <tr>
-               <th></th>
+            	<th></th>
+                <th></th>
                 <th></th>
                 <th></th>
 				<th></th>
@@ -57,6 +59,14 @@
 	<script type="text/javascript">
 
 	function format ( d ) {
+		var codigo;
+		
+		if (typeof d.cpf !== 'undefined') {
+			codigo = d.cpf;			
+		} else {
+			codigo = d.cnpj;
+		}
+		
 	    // `d` is the original data object for the row
 	    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
 	        '<tr>'+
@@ -64,8 +74,8 @@
 	            '<td>'+d.nome+'</td>'+
 	        '</tr>'+
 	        '<tr>'+
-	            '<td>CPF:</td>'+
-	            '<td>'+d.cpf+'</td>'+
+	            '<td>CPF/CNPJ:</td>'+
+	            '<td>'+codigo+'</td>'+
 	        '</tr>'+
 	        '<tr>'+
 	            '<td>Cliente desde:</td>'+
@@ -86,8 +96,19 @@
 							    "data":           null,
 							    "defaultContent": '<a>detalhes</a>'
 							},
-							{ data: 'nome' } ,
-							{ data: 'cpf' },
+							{ data: 'nome' } ,							
+							{"data": null, 
+								"render": function (data) { 
+									if (typeof data.cpf !== 'undefined') return data.cpf+''; 
+									else return data.cnpj+'';
+								} 
+							},
+							{"data": null, 
+								"render": function (data) { 
+									if (typeof data.cpf !== 'undefined') return 'Pessoa Física'; 
+									else return 'Pessoa Jurídica';
+								} 
+							},
 							{ data: 'endereco' },
 							{ data: 'email' }
 					]
