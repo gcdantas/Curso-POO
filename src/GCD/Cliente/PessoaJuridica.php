@@ -1,6 +1,8 @@
 <?php
 
-class PessoaJuridica extends Cliente implements JsonSerializable {
+namespace GCD\Cliente;
+
+class PessoaJuridica extends Cliente implements \JsonSerializable {
 	private $cnpj;
 	
 	public function getCnpj() {

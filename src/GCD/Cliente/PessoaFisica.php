@@ -1,6 +1,8 @@
 <?php
 
-class PessoaFisica extends Cliente implements JsonSerializable {
+namespace GCD\Cliente;
+
+class PessoaFisica extends Cliente implements \JsonSerializable {
 	private $cpf;
 	
 	public function getCpf() {

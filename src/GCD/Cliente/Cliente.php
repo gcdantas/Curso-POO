@@ -1,8 +1,10 @@
 <?php
 
-require 'Importancia.interface.php';
+namespace GCD\Cliente;
 
-abstract class Cliente implements JsonSerializable, Importancia {
+abstract class Cliente implements \JsonSerializable {
+
+	
 	private $nome;
 	private $endereco;
 	private $email;
@@ -56,9 +58,9 @@ abstract class Cliente implements JsonSerializable, Importancia {
 		return $this;
 	}
 	
-	public function getGrauImportancia () {
-		return rand(1,5);
-	}
+// 	public function getGrauImportancia () {
+// 		return rand(1,5);
+// 	}
 	
 	
 }
