@@ -13,7 +13,7 @@
 // 	return false;
 // }
 
-require 'src/classes/Cliente.class.php';
-require 'src/classes/PessoaFisica.class.php';
-require 'src/classes/PessoaJuridica.class.php';
+// require 'src/GCD/Cliente/Cliente.class.php';
+// require 'src/GCD/Cliente/PessoaFisica.class.php';
+// require 'src/GCD/Cliente/PessoaJuridica.class.php';
 ?>

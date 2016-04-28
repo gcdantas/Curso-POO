@@ -4,7 +4,11 @@
 // require 'classes/PessoaFisicaClass.php';
 // require 'classes/PessoaJuridicaClass.php';
 
-require 'config.php';
+// require 'config.php';
+
+require 'src/GCD/Cliente/Cliente.class.php';
+require 'src/GCD/Cliente/PessoaFisica.class.php';
+require 'src/GCD/Cliente/PessoaJuridica.class.php';
 
 $lstClientesPf = array();
 $lstClientesPj = array();
