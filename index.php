@@ -59,15 +59,6 @@
 	<script type="text/javascript">
 
 	function format ( d ) {
-		var codigo;
-		
-		if (typeof d.cpf !== 'undefined') {
-			codigo = d.cpf;			
-		} else {
-			codigo = d.cnpj;
-		}
-		
-	    // `d` is the original data object for the row
 	    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
 	        '<tr>'+
 	            '<td>Nome:</td>'+
@@ -75,7 +66,7 @@
 	        '</tr>'+
 	        '<tr>'+
 	            '<td>CPF/CNPJ:</td>'+
-	            '<td>'+codigo+'</td>'+
+	            '<td>'+d.cpf_cnpj+'</td>'+
 	        '</tr>'+
 	        '<tr>'+
 	            '<td>Cliente desde:</td>'+
@@ -96,16 +87,11 @@
 							    "data":           null,
 							    "defaultContent": '<a>detalhes</a>'
 							},
-							{ data: 'nome' } ,							
+							{ data: 'nome' } ,
+							{ data: 'cpf_cnpj' },
 							{"data": null, 
 								"render": function (data) { 
-									if (typeof data.cpf !== 'undefined') return data.cpf+''; 
-									else return data.cnpj+'';
-								} 
-							},
-							{"data": null, 
-								"render": function (data) { 
-									if (typeof data.cpf !== 'undefined') return 'Pessoa Física'; 
+									if (data.cpf_cnpj.length <= 14) return 'Pessoa Física'; 
 									else return 'Pessoa Jurídica';
 								} 
 							},

@@ -4,16 +4,18 @@ define ('CLASS_DIR','src');
 set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
 spl_autoload_register();
 
-$lstClientesPf = array();
-$lstClientesPj = array();
+$conexao = null;
 
-$clientepf = new GCD\Cliente\PessoaFisica();
-$lstClientesPf = $clientepf->getClientes();
+try {
+	$conexao = new PDO("mysql:host=localhost;dbname=php-poo", 'root', '');
+	$conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
+catch(PDOException $e) {
+	echo "Error: " . $e->getMessage();
+}
 
-$clientepj = new GCD\Cliente\PessoaJuridica();
-$lstClientesPj = $clientepj->getClientes();
-
-$listClientes = array_merge($lstClientesPf, $lstClientesPj);
+$clientes = new GCD\Cliente\Cliente($conexao);
+$listClientes = $clientes->getClientes();
 
 $results = array(
         "sEcho" => 1,
